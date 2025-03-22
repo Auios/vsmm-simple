@@ -74,7 +74,15 @@ const mods: string[] = [
 
 import { DOMParser } from "jsr:@b-fuze/deno-dom";
 
-const modsDir = `C:/Users/LoneA/AppData/Roaming/VintagestoryData/Mods`;
+const isWindows = Deno.build.os === "windows";
+if (!isWindows) {
+  throw new Error("Windows only for now");
+}
+const username = Deno.env.get("USERNAME") || Deno.env.get("USER");
+if (!username) {
+  throw new Error("Could not determine username from environment variables");
+}
+const modsDir = `C:/Users/${username}/AppData/Roaming/VintagestoryData/Mods`;
 
 // Empty the mods directory before downloading new mods
 try {
