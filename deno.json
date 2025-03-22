@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "lib": ["deno.window", "dom", "esnext"],
+    "types": ["https://deno.land/x/types/index.d.ts"]
+  },
+  "tasks": {
+    "start": "deno run -A src/main.ts"
+  },
+  "lint": {
+    "files": {
+      "include": ["src/"]
+    },
+    "rules": {
+      "tags": ["recommended"]
+    }
+  },
+  "fmt": {
+    "files": {
+      "include": ["src/"]
+    },
+    "useTabs": false,
+      "lineWidth": 80,
+      "indentWidth": 2,
+      "singleQuote": true,
+      "proseWrap": "always"
+  },
+  "imports": {
+    "@b-fuze/deno-dom": "jsr:@b-fuze/deno-dom@^0.1.49"
+  },
+  "include": ["/src"]
+}
