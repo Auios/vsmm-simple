@@ -81,18 +81,17 @@ try {
   console.log(`Emptying mods directory: ${modsDir}`);
 
   for (const dirEntry of Deno.readDirSync(modsDir)) {
-    if (dirEntry.isFile && dirEntry.name.endsWith('.zip')) {
+    if (dirEntry.isFile && dirEntry.name.endsWith(".zip")) {
       const filePath = `${modsDir}/${dirEntry.name}`;
       console.log(`Removing: ${filePath}`);
       Deno.removeSync(filePath);
     }
   }
 
-  console.log('Mods directory emptied successfully');
+  console.log("Mods directory emptied successfully");
 } catch (error) {
-  console.error('Error emptying mods directory:', error);
+  console.error("Error emptying mods directory:", error);
 }
-
 
 mods.forEach(async (url) => {
   try {
@@ -114,7 +113,10 @@ mods.forEach(async (url) => {
       console.log(`Found download: ${fileName} at ${downloadUrl}`);
 
       const modResponse = await fetch(downloadUrl);
-      const file = await Deno.open(`${modsDir}/${fileName}`, { create: true, write: true });
+      const file = await Deno.open(`${modsDir}/${fileName}`, {
+        create: true,
+        write: true,
+      });
 
       await modResponse.body?.pipeTo(file.writable);
     } else {
