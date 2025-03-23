@@ -29,7 +29,7 @@ const mods: string[] = [
   "https://mods.vintagestory.at/petai",
   "https://mods.vintagestory.at/millwright",
   "https://mods.vintagestory.at/liquidcontainers",
-  // "https://mods.vintagestory.at/knapster",
+  "https://mods.vintagestory.at/knapster",
   "https://mods.vintagestory.at/fromgoldencombs",
   "https://mods.vintagestory.at/dinornithidae",
   "https://mods.vintagestory.at/rhinocerotidae",
@@ -70,6 +70,9 @@ const mods: string[] = [
   "https://mods.vintagestory.at/ancienttools",
   "https://mods.vintagestory.at/alchemy", // https://mods.vintagestory.at/download/35514/alchemy_1.6.48.zip
   "https://mods.vintagestory.at/aculinaryartillery", // https://mods.vintagestory.at/download/35171/ACulinaryArtillery%201.2.5.zip
+  "https://mods.vintagestory.at/saltfromseawater",
+  "https://mods.vintagestory.at/artofcooking",
+  "https://mods.vintagestory.at/dressmakers",
 ];
 
 import { DOMParser } from "jsr:@b-fuze/deno-dom";
@@ -78,11 +81,11 @@ const isWindows = Deno.build.os === "windows";
 if (!isWindows) {
   throw new Error("Windows only for now");
 }
-const username = Deno.env.get("USERNAME") || Deno.env.get("USER");
-if (!username) {
-  throw new Error("Could not determine username from environment variables");
+const appData = Deno.env.get("APPDATA");
+if (!appData) {
+  throw new Error("Could not determine APPDATA environment variable");
 }
-const modsDir = `C:/Users/${username}/AppData/Roaming/VintagestoryData/Mods`;
+const modsDir = `${appData}/VintagestoryData/Mods`;
 
 // Empty the mods directory before downloading new mods
 try {
