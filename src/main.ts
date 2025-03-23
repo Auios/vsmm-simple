@@ -72,6 +72,7 @@ const mods: string[] = [
   "https://mods.vintagestory.at/saltfromseawater",
   "https://mods.vintagestory.at/artofcooking",
   "https://mods.vintagestory.at/dressmakers",
+  "https://mods.vintagestory.at/coreofarts",
 ].sort();
 
 import { DOMParser } from "jsr:@b-fuze/deno-dom";
