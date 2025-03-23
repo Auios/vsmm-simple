@@ -77,7 +77,12 @@ const mods: string[] = [
 
 import { DOMParser } from "jsr:@b-fuze/deno-dom";
 
-const modsDir = `C:/Users/LoneA/AppData/Roaming/VintagestoryData/Mods`;
+if (Deno.build.os !== 'windows') {
+  console.error('This only works with Windows.');
+  Deno.exit(1);
+}
+
+const modsDir = `${Deno.env.get("APPDATA")}/VintagestoryData/Mods`;
 
 // Empty the mods directory before downloading new mods
 try {
