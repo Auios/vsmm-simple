@@ -2,7 +2,6 @@ const mods: string[] = [
   "https://mods.vintagestory.at/show/mod/244", // xlib
   "https://mods.vintagestory.at/domesticanimaltrader", // Domestic Animal Trader
   "https://mods.vintagestory.at/wildfarmingrevival", // Wild Farming - Revival
-  "https://mods.vintagestory.at/domesticanimaltrader", // Domestic Animal Trader
   "https://mods.vintagestory.at/show/mod/463", // Instruments
   "https://mods.vintagestory.at/show/mod/17850", // Instruments Quackpack
   "https://mods.vintagestory.at/imgui", // vsimgui
@@ -29,7 +28,7 @@ const mods: string[] = [
   "https://mods.vintagestory.at/petai",
   "https://mods.vintagestory.at/millwright",
   "https://mods.vintagestory.at/liquidcontainers",
-  // "https://mods.vintagestory.at/knapster",
+  "https://mods.vintagestory.at/knapster",
   "https://mods.vintagestory.at/fromgoldencombs",
   "https://mods.vintagestory.at/dinornithidae",
   "https://mods.vintagestory.at/rhinocerotidae",
@@ -70,7 +69,10 @@ const mods: string[] = [
   "https://mods.vintagestory.at/ancienttools",
   "https://mods.vintagestory.at/alchemy", // https://mods.vintagestory.at/download/35514/alchemy_1.6.48.zip
   "https://mods.vintagestory.at/aculinaryartillery", // https://mods.vintagestory.at/download/35171/ACulinaryArtillery%201.2.5.zip
-];
+  "https://mods.vintagestory.at/saltfromseawater",
+  "https://mods.vintagestory.at/artofcooking",
+  "https://mods.vintagestory.at/dressmakers",
+].sort();
 
 import { DOMParser } from "jsr:@b-fuze/deno-dom";
 
@@ -94,7 +96,6 @@ try {
   console.error('Error emptying mods directory:', error);
 }
 
-
 mods.forEach(async (url) => {
   try {
     const response = await fetch(url);
@@ -110,7 +111,7 @@ mods.forEach(async (url) => {
     if (downloadLink) {
       const downloadUrl = `https://mods.vintagestory.at${downloadLink.getAttribute(
         "href"
-      )}`;
+      )}`.replace("%", "");
       const fileName = downloadLink.textContent?.trim() ?? "unknown.zip";
 
       console.log(`Found download: ${fileName} at ${downloadUrl}`);
