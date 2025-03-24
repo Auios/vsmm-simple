@@ -92,13 +92,14 @@ const mods: string[] = [
   "https://mods.vintagestory.at/prospecttogether",
   "https://mods.vintagestory.at/spyglass",
   "https://mods.vintagestory.at/tabletopgames",
+  "https://mods.vintagestory.at/shearlib",
   "https://mods.vintagestory.at/wool",
 ].sort();
 
 import { DOMParser } from "jsr:@b-fuze/deno-dom";
 
-if (Deno.build.os !== 'windows') {
-  console.error('This only works with Windows.');
+if (Deno.build.os !== "windows") {
+  console.error("This only works with Windows.");
   Deno.exit(1);
 }
 
@@ -110,16 +111,16 @@ try {
 
   // Read all files in the mods directory
   for (const dirEntry of Deno.readDirSync(modsDir)) {
-    if (dirEntry.isFile && dirEntry.name.endsWith('.zip')) {
+    if (dirEntry.isFile && dirEntry.name.endsWith(".zip")) {
       const filePath = `${modsDir}/${dirEntry.name}`;
       console.log(`Removing: ${filePath}`);
       Deno.removeSync(filePath);
     }
   }
 
-  console.log('Mods directory emptied successfully');
+  console.log("Mods directory emptied successfully");
 } catch (error) {
-  console.error('Error emptying mods directory:', error);
+  console.error("Error emptying mods directory:", error);
 }
 
 mods.forEach(async (url) => {
@@ -135,15 +136,19 @@ mods.forEach(async (url) => {
     const downloadLink = doc.querySelector("a.downloadbutton");
 
     if (downloadLink) {
-      const downloadUrl = `https://mods.vintagestory.at${downloadLink.getAttribute(
-        "href"
-      )}`.replace("%", "");
+      const downloadUrl =
+        `https://mods.vintagestory.at${downloadLink.getAttribute(
+          "href"
+        )}`.replace("%", "");
       const fileName = downloadLink.textContent?.trim() ?? "unknown.zip";
 
       console.log(`Found download: ${fileName} at ${downloadUrl}`);
 
       const modResponse = await fetch(downloadUrl);
-      const file = await Deno.open(`${modsDir}/${fileName}`, { create: true, write: true });
+      const file = await Deno.open(`${modsDir}/${fileName}`, {
+        create: true,
+        write: true,
+      });
 
       await modResponse.body?.pipeTo(file.writable);
     } else {
